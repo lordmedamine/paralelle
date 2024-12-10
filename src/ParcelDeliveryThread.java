@@ -11,8 +11,10 @@ class ParcelDeliveryThread extends Thread {
     public void run() {
         system.registerParcel(parcel);
         try {
-            Thread.sleep(2000);
-            system.deliverParcel(parcel.getId());
+            synchronized (system) {
+                Thread.sleep(2000);
+                system.deliverParcel(parcel.getId());
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
